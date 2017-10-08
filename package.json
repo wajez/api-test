@@ -4,7 +4,8 @@
   "description": "Testing REST API made easy.",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "mocha --recursive",
+    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- . -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "body-parser": "^1.18.1",
+    "istanbul": "^0.4.5",
     "express": "^4.15.4",
     "mongoose": "^4.11.11"
   }
