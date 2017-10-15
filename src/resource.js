@@ -15,8 +15,16 @@ const defaultCreate = Model => {
 	return result
 }
 
+const pluralize = word => {
+	const words = word.replace(/\.?([A-Z]+)/g, (x, y) => '-' + y.toLowerCase())
+		.replace(/^-/, '')
+		.split('-')
+	words.push(plural(words.pop()))
+	return words.join('-')
+}
+
 const defaultRoutes = Model => {
-	const names = plural(Model.modelName.toLowerCase())
+	const names = pluralize(Model.modelName)
 	return {
 		collection: `/${names}`,
 		resource: `/${names}/:id`
@@ -24,7 +32,7 @@ const defaultRoutes = Model => {
 }
 
 const defaultChild = (Model, route, field) => {
-	const names  = plural(Model.modelName.toLowerCase())
+	const names  = pluralize(Model.modelName)
 		, fields = modelRules(Model).fields
 	if (undefined == fields[field])
 		throw Error(`The model ${Model.modelName} has no field '${field}'`)
@@ -47,8 +55,7 @@ const dataFor = (Model, fields) => {
 	})
 }
 
-const make = (name, {json, routes, create, children} = {}) => {
-	const Model = mongoose.model(name)
+const make = (Model, {json, routes, create, children} = {}) => {
 	routes = R.merge(defaultRoutes(Model), routes || {})
 	create = create || defaultCreate(Model)
 	children = (children || []).map(child =>
@@ -56,12 +63,11 @@ const make = (name, {json, routes, create, children} = {}) => {
 	)
 	const data = R.range(0, 3).map(_ => dataFor(Model, create))
 	children = children.map(child => {
-		child.Model = mongoose.model(child.name)
 		child.data  = R.range(0, 3).map(_ => dataFor(child.Model, child.create))
 		return child
 	})
 
-	return {Model, routes, data, children, json}
+	return {routes, data, children, json}
 }
 
 const clean = (Model, Children) => done => {
@@ -72,8 +78,9 @@ const clean = (Model, Children) => done => {
 	.catch(done)
 }
 
-const resource = (app, name, options) => {
-	const {Model, routes, data, children, json} = make(name, options)
+const resource = (app, Model, options) => {
+	const {routes, data, children, json} = make(Model, options)
+	const name = Model.modelName
 	const names = plural(name).toLowerCase()
 	const items = {
 		resources: [],

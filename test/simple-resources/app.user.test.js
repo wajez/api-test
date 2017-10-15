@@ -1,6 +1,7 @@
 const test = require('../../src/')
-	, app  = require('./app')
+	, app  = require('./app.user')
 	, transform = require('wajez-transform')
+	, User = require('./user')
 
 const json = transform({
 	id: 'id',
@@ -9,7 +10,7 @@ const json = transform({
 	token: 'token'
 })
 
-test(app).resource('User', {
+test(app).resource(User, {
 	create: ['name', 'email', 'password'],
 	json: { // required
 		resource: json, 
