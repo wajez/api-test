@@ -1,7 +1,7 @@
 const {get, post, put, remove} = require('./methods')
 const resource = require('./resource')
 
-module.exports = app => {
+const appTest = app => {
 	const test = {}
 	
 	test.get = (uri, options) => {
@@ -31,3 +31,8 @@ module.exports = app => {
 
 	return test
 }
+
+appTest.generate = require('./generate')
+appTest.Rules = require('./rules')
+
+module.exports = appTest

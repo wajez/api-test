@@ -2,11 +2,6 @@ const express    = require('express')
 	, bodyParser = require('body-parser')
 	, app        = express()
 
-app.use(bodyParser.urlencoded({
-    limit: '50mb',
-    extended: true
-}))
-
 app.use(bodyParser.json({
     limit: '50mb'
 }))

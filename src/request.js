@@ -15,19 +15,23 @@ const fill = (text, object) => {
 	return text
 }
 
-const request = (app, method, uri, {description, params, data, status, body, done, verify}) => {
+const request = (app, method, uri, {description, params, data, status, body, verify}) => {
 
 	var message = `${method.toUpperCase()} ${uri}`
 	if (undefined != description)
 		message += ' ' + description
 
 	it(message, done => {
+		if (R.type(params) == 'Function')
+			params = params()
+		if (R.type(data) == 'Function')
+			data = data()
+		if (R.type(status) == 'Function')
+			status = status()
 		if (undefined === status)
 			status = 200 // default status
 		if (R.type(body) == 'Function')
 			body = body()
-		if (R.type(params) == 'Function')
-			params = params()
 		uri = fill(uri, params)
 
 		let onSuccess = res => done('Failed !')
