@@ -8,7 +8,7 @@ Testing REST API made easy.
 
 # Contents Table
 
-- [What is this?](#what-is-this-)
+- [What is this?](#what-is-this)
 
 - [Installation](#installation)
 
@@ -112,6 +112,7 @@ describe('Simple Methods Test', () => {
 - **uri**: The URI to which the request will be sent. It can have placeholders for parameters (exemple `/users/:id`).
 - **options**: to handle the request and the response, they include:
     + **description**: an optional description for the test case.
+    + **headers**: headers to add to the request.
     + **data**: The data to send with the request. By default, no data is sent.
     + **params**: If the URI contains placeholders, this option is used to fill them.
     + **status**: The expected response status. The default value is `200`.
@@ -265,6 +266,8 @@ When `children` are specified, the following steps are added to the testing sena
 3. Check that GET `/users/:id/posts` returns returns the added post for each user.
 
 # Changelog
+
+- **Version 1.0.4**: option `headers` added to methods `get`, `post`, `put` and `delete`.
 
 - **Version 1.0.3**: README updated.
 

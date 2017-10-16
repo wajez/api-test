@@ -15,13 +15,15 @@ const fill = (text, object) => {
 	return text
 }
 
-const request = (app, method, uri, {description, params, data, status, body, verify}) => {
+const request = (app, method, uri, {description, params, data, status, body, verify, headers}) => {
 
 	var message = `${method.toUpperCase()} ${uri}`
 	if (undefined != description)
 		message += ' ' + description
 
 	it(message, done => {
+		if (R.type(headers) == 'Function')
+			headers = headers()
 		if (R.type(params) == 'Function')
 			params = params()
 		if (R.type(data) == 'Function')
@@ -62,6 +64,11 @@ const request = (app, method, uri, {description, params, data, status, body, ver
 		    }
 		}
 		var query = chai.request(app)[method](uri)
+		if (headers) {
+			R.keys(headers).forEach(key => {
+				query.set(key, headers[key])
+			})
+		}
 		if (undefined !== data)
 		    query = query.send(data)
 		query.then(onSuccess).catch(onFailure)
