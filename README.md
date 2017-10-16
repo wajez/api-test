@@ -8,15 +8,15 @@ Testing REST API made easy.
 
 # Contents Table
 
-- [What is this?](what-is-this-)
+- [What is this?](#what-is-this-)
 
-- [Installation](installation)
+- [Installation](#installation)
 
-- [Testing Single Route](testing-single-route)
+- [Testing Single Route](#testing-single-route)
 
-- [Testing REST Resources](testing-rest-resources)
+- [Testing REST Resources](#testing-rest-resources)
 
-- [Changelog](changelog)
+- [Changelog](#changelog)
 
 # What is this?
 
@@ -33,7 +33,7 @@ npm i wajez-api-test --save-dev
 Let's test the following simple application
 
 **app.js**
-```
+```js
 const express    = require('express')
     , bodyParser = require('body-parser')
     , app        = express()
@@ -148,7 +148,7 @@ In addition to `get`, `post`, `put` and `delete` methodes, the testing object pr
 Let's take the following Mongoose models for example:
 
 **user.js**
-```
+```js
 const mongoose = require('mongoose')
     , Schema   = mongoose.Schema
 
@@ -265,6 +265,8 @@ When `children` are specified, the following steps are added to the testing sena
 3. Check that GET `/users/:id/posts` returns returns the added post for each user.
 
 # Changelog
+
+- **Version 1.0.3**: README updated.
 
 - **Version 1.0.1**: Passing the mongoose model to `resource` method instead of the model name.
 
