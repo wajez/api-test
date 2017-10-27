@@ -11,6 +11,7 @@ const json = transform({
 })
 
 test(app).resource(User, {
+	prefix: '/api',
 	create: ['name', 'email', 'password'],
 	json: { // required
 		resource: json, 

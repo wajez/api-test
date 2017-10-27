@@ -28,7 +28,7 @@ const asJSON = transform({
 	token: 'token'
 })
 
-app.get('/users', (req, res) => {
+app.get('/api/users', (req, res) => {
 	User.find({})
 	.then(items => res.json(items.map(asJSON)))
 	.catch(err => {
@@ -38,7 +38,7 @@ app.get('/users', (req, res) => {
 	})
 })
 
-app.get('/users/:id', (req, res) => {
+app.get('/api/users/:id', (req, res) => {
 	const id = req.params.id
 	if (! id.match(/^[0-9a-fA-F]{24}$/)) {
 	    res.status(404)
@@ -59,7 +59,7 @@ app.get('/users/:id', (req, res) => {
 	})
 })
 
-app.post('/users', (req, res) => {
+app.post('/api/users', (req, res) => {
 	User.create(R.merge(req.body, {token: '1234567890abcde1234567890abcde1234567890abcde1234567890abcdewxyz'}))
 	.then(item => res.status(201).json(asJSON(item)))
 	.catch(err => {
@@ -68,7 +68,7 @@ app.post('/users', (req, res) => {
 	})
 })
 
-app.put('/users/:id', (req, res) => {
+app.put('/api/users/:id', (req, res) => {
 	const id = req.params.id
 	if (! id.match(/^[0-9a-fA-F]{24}$/)) {
 	    res.status(400)
@@ -89,7 +89,7 @@ app.put('/users/:id', (req, res) => {
 	})
 })
 
-app.delete('/users/:id', (req, res) => {
+app.delete('/api/users/:id', (req, res) => {
 	const id = req.params.id
 	if (! id.match(/^[0-9a-fA-F]{24}$/)) {
 	    return res.json({})

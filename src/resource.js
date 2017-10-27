@@ -23,11 +23,12 @@ const pluralize = word => {
 	return words.join('-')
 }
 
-const defaultRoutes = Model => {
+const defaultRoutes = (Model, prefix) => {
 	const names = pluralize(Model.modelName)
+	prefix = prefix || ''
 	return {
-		collection: `/${names}`,
-		resource: `/${names}/:id`
+		collection: `${prefix}/${names}`,
+		resource: `${prefix}/${names}/:id`
 	}
 }
 
@@ -55,8 +56,8 @@ const dataFor = (Model, fields) => {
 	})
 }
 
-const make = (Model, {json, routes, create, children} = {}) => {
-	routes = R.merge(defaultRoutes(Model), routes || {})
+const make = (Model, {json, routes, prefix, create, children} = {}) => {
+	routes = R.merge(defaultRoutes(Model, prefix), routes || {})
 	create = create || defaultCreate(Model)
 	children = (children || []).map(child =>
 		R.mergeDeepRight(defaultChild(Model, routes.resource, child.field), child)

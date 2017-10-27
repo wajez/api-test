@@ -232,6 +232,7 @@ The full list of the `resource` options is as follows:
 
 ```js
 test(app).resource(MongooseModel, {
+    prefix: '/api', // optional, default ''
     routes: { // optional
         collection: '/users', // the collection route, used to get list of resources and add new ones. Default values is the model name in pluralized dashes case. (ChannelCategory => channel-categories)
         resource: '/users/:name', // the route used to get, update or delete single route. Default is `${routes.collection}/:id`
@@ -266,6 +267,8 @@ When `children` are specified, the following steps are added to the testing sena
 3. Check that GET `/users/:id/posts` returns returns the added post for each user.
 
 # Changelog
+
+- **Version 1.0.5**: option `prefix` added.
 
 - **Version 1.0.4**: option `headers` added to methods `get`, `post`, `put` and `delete`.
 
