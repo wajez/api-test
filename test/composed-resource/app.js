@@ -34,6 +34,7 @@ const error = res => err => {
 
 app.get('/categories', (req, res) => {
 	Category.find({})
+	.populate('parent')
 	.then(items => res.json(toCollection(items)))
 	.catch(error(res))
 })

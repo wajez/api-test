@@ -268,6 +268,8 @@ When `children` are specified, the following steps are added to the testing sena
 
 # Changelog
 
+- **Version 1.0.6**: bug fixes.
+
 - **Version 1.0.5**: option `prefix` added.
 
 - **Version 1.0.4**: option `headers` added to methods `get`, `post`, `put` and `delete`.

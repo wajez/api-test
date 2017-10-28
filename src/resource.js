@@ -226,8 +226,9 @@ const resource = (app, Model, options) => {
 							let referenceId = resource[child.reference]
 							if (referenceId != null && referenceId.id)
 								referenceId = referenceId.id
-							if (referenceId == removed.id)
+							if (referenceId && referenceId.toString('hex') == removed.id.toString('hex')) {
 								resource[child.reference] = null
+							}
 						}
 					})
 				})
