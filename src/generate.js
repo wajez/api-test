@@ -41,10 +41,12 @@ const object = fields => {
 	return result
 }
 
-const array = (rule, {minLength, maxLength}) => {
-	const length = chance.integer({min: minLength, max: maxLengthx})
+const array = ({rule, minLength, maxLength}) => {
+    if (rule.type == 'ref')
+        return []
+	const length = chance.integer({min: minLength, max: maxLength})
 		, items = []
-		, i = 0
+	let i = 0
 	while (i < length) {
 		items.push(generate(rule))
 		i ++
