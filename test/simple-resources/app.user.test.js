@@ -1,6 +1,7 @@
 const test = require('../../src/')
 	, app  = require('./app.user')
 	, transform = require('wajez-transform')
+	, mongoose = require('mongoose')
 	, User = require('./user')
 
 const json = transform({
@@ -9,12 +10,17 @@ const json = transform({
 	email: 'email',
 	token: 'token'
 })
+describe('Simple resource > User', () => {
+	before(() => mongoose.connect(`mongodb://localhost/chwia-api-test`))
 
-test(app).resource(User, {
-	prefix: '/api',
-	create: ['name', 'email', 'password'],
-	json: { // required
-		resource: json, 
-		collectionItem: json
-	}
+	test(app).resource(User, {
+		prefix: '/api',
+		create: ['name', 'email', 'password'],
+		json: { // required
+			resource: json, 
+			collectionItem: json
+		}
+	})
+
+	after(() => mongoose.disconnect())
 })

@@ -35,43 +35,23 @@ const request = (app, method, uri, {description, params, data, status, body, ver
 		if (R.type(body) == 'Function')
 			body = body()
 		uri = fill(uri, params)
-
-		let onSuccess = res => done('Failed !')
-		let onFailure = done
-		if (isSuccess(status)) {
-		    onSuccess = res => {
-		        res.should.have.status(status)
-		        if (body != undefined)
-		            validate(body, res.body)
-		        if (verify != undefined) {
-		            return verify(res, done)
-		        }
-		        done()
-		    }
-		} else {
-		    onFailure = err => {
-		        try {
-		            const res = err.response.res
-		            err.should.have.status(status)
-		            if (body != undefined)
-		                validate(body, res.body)
-		            if (undefined != verify)
-		                return verify(res, done)
-		            done()
-		        } catch(err) {
-		            done(err)
-		        }
-		    }
-		}
-		var query = chai.request(app)[method](uri)
+		let query = chai.request(app)[method](uri)
 		if (headers) {
 			R.keys(headers).forEach(key => {
 				query.set(key, headers[key])
 			})
 		}
 		if (undefined !== data)
-		    query = query.send(data)
-		query.then(onSuccess).catch(onFailure)
+	    query = query.send(data)
+		query.then(res => {
+			res.should.have.status(status)
+			if (body != undefined)
+			    validate(body, res.body)
+			if (verify != undefined) {
+			    return verify(res, done)
+			}
+			done()
+		}).catch(done)
 	})
 }
 

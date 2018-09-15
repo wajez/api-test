@@ -7,10 +7,6 @@ const express    = require('express')
 	, transform  = require('wajez-transform')
 
 mongoose.Promise = global.Promise
-mongoose.connect(`mongodb://localhost/chwia-api-test`, {
-	useMongoClient: true
-})
-const db = mongoose.connection
 
 app.use(bodyParser.urlencoded({
     limit: '50mb',

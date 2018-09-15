@@ -1,17 +1,13 @@
 const express    = require('express')
 	, bodyParser = require('body-parser')
-    , mongoose   = require('mongoose')
+  , mongoose   = require('mongoose')
 	, R          = require('ramda')
-    , Category   = require('./category')
-    , Post   	 = require('./post')
+  , Category   = require('./category')
+  , Post   	 = require('./post')
 	, app        = express()
 	, transformers = require('./transformers')
 
 mongoose.Promise = global.Promise
-mongoose.connect(`mongodb://localhost/chwia-api-test`, {
-	useMongoClient: true
-})
-const db = mongoose.connection
 
 app.use(bodyParser.urlencoded({
     limit: '50mb',
