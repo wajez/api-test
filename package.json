@@ -1,11 +1,11 @@
 {
   "name": "wajez-api-test",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Testing REST API made easy.",
   "main": "src/index.js",
   "scripts": {
     "test": "mocha --recursive --exit",
-    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --recursive -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --recursive --exit -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
